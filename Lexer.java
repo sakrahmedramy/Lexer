@@ -34,7 +34,7 @@ public class Lexer {
                 next = line.charAt(i + 1);
             }
 
-            // Comentariu pe mai multe linii
+            // Multi-line comment
             if(inMultiLineComment){
                 if(c == '*' && next == '/'){
                     inMultiLineComment = false;
@@ -96,7 +96,7 @@ public class Lexer {
             }
 
            switch (c) {
-                // Punctuație și Delimitatori
+                // Punctuation and Delimiters
                 case ';': tokens.add(new Token(TokenType.SEMICOLON, ";", lineNumber)); break;
                 case '.': tokens.add(new Token(TokenType.DOT, ".", lineNumber)); break;
                 case ',': tokens.add(new Token(TokenType.COMMA, ",", lineNumber)); break;
@@ -108,7 +108,7 @@ public class Lexer {
                 case '[': tokens.add(new Token(TokenType.LBRACKET, "[", lineNumber)); break;
                 case ']': tokens.add(new Token(TokenType.RBRACKET, "]", lineNumber)); break;
 
-                // Operatori Aritmetici și de Atribuire
+                // Arithmetic and Assignment Operators
                 case '=':
                     if(next == '='){
                         tokens.add(new Token(TokenType.EQUAL, "==", lineNumber));
@@ -152,7 +152,7 @@ public class Lexer {
                     break;
                 case '%': tokens.add(new Token(TokenType.MODULO, "%", lineNumber)); break;
 
-                // Operatori Logici și Relaționali
+                // Logical and Relational Operators
                 case '<':
                     if(next == '='){
                         tokens.add(new Token(TokenType.LESS_EQUAL, "<=", lineNumber));
@@ -195,7 +195,7 @@ public class Lexer {
                     break;
                 case '^': tokens.add(new Token(TokenType.CARET, "^", lineNumber)); break;
 
-                // Caractere speciale pentru text
+                // Special text characters
                 case '\\': tokens.add(new Token(TokenType.BACKSLASH, "\\", lineNumber)); break;
 
                 default:

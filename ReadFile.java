@@ -5,7 +5,7 @@ import java.util.Scanner;
 import java.util.concurrent.BlockingQueue; 
 
 public class ReadFile implements Runnable {
-    // Se compară cu == ca să nu fie confundate cu o linie "STOP" din fișier
+    // Compared with == so they are never confused with a "STOP" line from a file
     public static final String STOP = new String("STOP");
     public static final String NEW_FILE = new String("NEW_FILE");
 

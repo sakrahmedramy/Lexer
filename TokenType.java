@@ -1,13 +1,13 @@
 public enum TokenType {
-    // Cuvinte cheie (Keywords)
+    // Keywords
     INT, CLASS, PUBLIC, PRIVATE, STATIC, VOID, RETURN, IF, ELSE, WHILE, FOR, NEW,
 
-    // Identificatori și Literali
+    // Identifiers and Literals
     IDENTIFIER, 
     NUMBER, 
     STRING_LITERAL,
 
-    // Operatori Aritmetici și de Atribuire
+    // Arithmetic and Assignment Operators
     ASSIGN,       // =
     PLUS,         // +
     MINUS,        // -
@@ -19,7 +19,7 @@ public enum TokenType {
     PLUS_ASSIGN,  // +=
     MINUS_ASSIGN, // -=
 
-    // Operatori Logici și Relaționali
+    // Logical and Relational Operators
     EQUAL,        // ==
     NOT_EQUAL,    // !=
     LESS,         // <
@@ -33,7 +33,7 @@ public enum TokenType {
     PIPE,         // |
     CARET,        // ^
 
-    // Punctuație și Delimitatori
+    // Punctuation and Delimiters
     SEMICOLON,    // ;
     DOT,          // .
     COMMA,        // ,
@@ -46,9 +46,9 @@ public enum TokenType {
     LBRACKET,     // [
     RBRACKET,     // ]
 
-    // Caractere speciale pentru text
+    // Special text characters
     BACKSLASH,    // \
 
-    // Sfârșitul fișierului/stream-ului
+    // End of file/stream
     EOF
 }
