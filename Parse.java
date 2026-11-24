@@ -3,11 +3,11 @@ import java.util.concurrent.BlockingQueue;
 
 public class Parse implements Runnable {
     
-    private BlockingQueue<String> linkingStack;
+    private BlockingQueue<String> queue;
     private Lexer lexer;
 
-    public Parse(BlockingQueue<String> linkingStack) {
-        this.linkingStack = linkingStack;
+    public Parse(BlockingQueue<String> queue) {
+        this.queue = queue;
         this.lexer = new Lexer();
     }
 
@@ -17,7 +17,7 @@ public class Parse implements Runnable {
         try {
             while (true) {
                
-                String line = linkingStack.take(); 
+                String line = queue.take(); 
                
                 if (line == ReadFile.STOP) {
                     System.out.println("Done");
@@ -40,7 +40,7 @@ public class Parse implements Runnable {
             
             }
         } catch (InterruptedException e) {
-            System.out.println("Errore in Parse: " + e.getMessage());
+            System.out.println("Error in Parse: " + e.getMessage());
             Thread.currentThread().interrupt();
         }
     }

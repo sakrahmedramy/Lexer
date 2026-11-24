@@ -13,18 +13,19 @@ A lexical analyzer written from scratch in Java. It walks a folder, reads every 
 
 ## Running
 
-Requires JDK 17+.
+Requires JDK 17+. Gradle is not needed, the wrapper (`gradlew`) downloads it.
 
 ```bash
-javac -d out *.java
-java -cp out Main <folder>
+./gradlew run --args="<folder>"
 ```
 
 Example, using the included `example/` folder:
 
 ```bash
-java -cp out Main example
+./gradlew run --args="example"
 ```
+
+On Windows, use `gradlew` (cmd) or `.\gradlew` (PowerShell) instead of `./gradlew`.
 
 `example/Hello.java`:
 
@@ -80,14 +81,19 @@ Done
 
 Lines 2-3 (the multiline comment) and the `// increment` comment produce no tokens.
 
+## Limitations
+
+- **No decimal numbers:** `3.14` is tokenized as `NUMBER(3)`, `DOT`, `NUMBER(14)`. Suffixes (`10L`, `2.5f`), hex (`0xFF`) and `1_000` are not supported either.
+- **No char literals:** `'a'` is not recognized. `'` is reported as an unknown character.
+- **Only a subset of keywords:** `int`, `public`, `private`, `static`, `void`, `class`, `return`, `if`, `else`, `while`, `for`, `new`. Other Java keywords (`boolean`, `try`, `switch`, `null`, ...) come out as `IDENTIFIER`.
+- **Partial operator coverage:** `*=`, `/=`, `%=`, `->`, `::`, `<<`, `>>`, `?` and `~` are not recognized as tokens.
+- **Line by line:** a string literal cannot span multiple lines (an unclosed `"` is reported and closed at the end of the line). Text blocks (`"""`) are not supported.
+- **One consumer thread:** I/O and tokenization are separated, but tokenization itself is not parallelized across files.
+
 ## Tests
 
-The JUnit 5 tests are in `test/LexerTest.java`. The JUnit jar is in `lib/`.
+The JUnit 5 tests are in `test/LexerTest.java`. Gradle downloads JUnit automatically.
 
 ```bash
-javac -d out *.java
-javac -d out -cp "out;lib/junit-platform-console-standalone-1.11.4.jar" test/LexerTest.java
-java -jar lib/junit-platform-console-standalone-1.11.4.jar execute -cp out --select-class LexerTest
+./gradlew test
 ```
-
-On Linux/macOS, use `:` instead of `;` in the classpath.

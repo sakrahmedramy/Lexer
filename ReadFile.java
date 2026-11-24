@@ -9,11 +9,11 @@ public class ReadFile implements Runnable {
     public static final String STOP = new String("STOP");
     public static final String NEW_FILE = new String("NEW_FILE");
 
-    private BlockingQueue<String> linkingStack;
+    private BlockingQueue<String> queue;
     private String pathOfProject;
 
-    public ReadFile(BlockingQueue<String> linkingStack, String pathOfProject) {
-        this.linkingStack = linkingStack;
+    public ReadFile(BlockingQueue<String> queue, String pathOfProject) {
+        this.queue = queue;
         this.pathOfProject = pathOfProject;
     }
 
@@ -44,7 +44,7 @@ public class ReadFile implements Runnable {
                 }
             }
         }
-        linkingStack.put(STOP);
+        queue.put(STOP);
             
             } catch (InterruptedException e) {
                 System.out.println("Thread error: " + e.getMessage());
@@ -54,11 +54,11 @@ public class ReadFile implements Runnable {
 
 private void readFile(File file) throws InterruptedException {
         try (Scanner myReader = new Scanner(file)) {
-            linkingStack.put(NEW_FILE);
+            queue.put(NEW_FILE);
             while (myReader.hasNextLine()) {
                 String line = myReader.nextLine();
                 
-                linkingStack.put(line); 
+                queue.put(line); 
             }
         } catch (FileNotFoundException e) {
             System.out.println("Couldn't read the: " + file.getName());
