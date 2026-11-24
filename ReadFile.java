@@ -5,6 +5,10 @@ import java.util.Scanner;
 import java.util.concurrent.BlockingQueue; 
 
 public class ReadFile implements Runnable {
+    // Se compară cu == ca să nu fie confundate cu o linie "STOP" din fișier
+    public static final String STOP = new String("STOP");
+    public static final String NEW_FILE = new String("NEW_FILE");
+
     private BlockingQueue<String> linkingStack;
     private String pathOfProject;
 
@@ -40,16 +44,17 @@ public class ReadFile implements Runnable {
                 }
             }
         }
-        linkingStack.put("STOP");
+        linkingStack.put(STOP);
             
             } catch (InterruptedException e) {
-                System.out.println("Eroare de thread: " + e.getMessage());
+                System.out.println("Thread error: " + e.getMessage());
                 Thread.currentThread().interrupt();
             }
         }
 
 private void readFile(File file) throws InterruptedException {
         try (Scanner myReader = new Scanner(file)) {
+            linkingStack.put(NEW_FILE);
             while (myReader.hasNextLine()) {
                 String line = myReader.nextLine();
                 
